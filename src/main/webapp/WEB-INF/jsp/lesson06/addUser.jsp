@@ -106,18 +106,24 @@ $(document).ready(function() {
 			return;
 		}
 		
-		let introduce = $('#introduce').val().trim();
+		let introduce = $('#introduce').val();
 		
 		// 서버에 전송 AJAX: 폼태그와 상관없이 비동기로 별도 요청(request)
 		$.ajax({
 			// request
-			type:"post"   // method 방식
+			type:"POST"   // method 방식
 			, url:"/lesson06/ex01/add_user"   // 요청 주소
 			, data:{"name":name, "yyyymmdd":yyyymmdd, "email":email, "introduce":introduce}
 			
 			// response
-			, success: function() {
-				alert(data);
+			, success: function(data) {
+				//alert(data);
+				if (data == "success") {
+					location.href = "/lesson06/ex01/get_user_view";
+				}
+			}
+			, complete: function(data) { // 성공 여부와 관련 없이 무조건 뜬다. (success/error만 있으면 됨)
+				alert("완료");
 			}
 			, error: function(e) {
 				alert("에러:" + e);
